@@ -19,11 +19,24 @@
 }
 
 .message {
-    background-color: #eeeeee;
-    padding: 10px;
-    border-radius: 15px;
-    display: inline-block;
 
+    min-height: 59px;
+}
+
+.me {
+    float: left;
+}
+
+.cont-cont {
+    display: inline-block;
+    float: right;
+
+}
+
+.content {
+    background-color: #4ab4f1;
+    padding: 8px 16px;
+    border-radius: 15px;
 }
 
 /* .form-group .btn {
