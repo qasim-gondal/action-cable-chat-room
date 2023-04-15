@@ -24,7 +24,16 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.user = current_user
     @message.save
-    ActionCable.server.broadcast "room_channel_#{@message.room_id}", message: "hello"
+
+    respond_to :create, mine = render(
+      partial: "messages/mine",
+      locals: { message: @message },
+    )
+    respond_to :create, theirs = render(
+      partial: "messages/thiers",
+      locals: { message: @message },
+    )
+    ActionCable.server.broadcast "room_channel_#{@message.room_id}", { mine: mine, theirs: theirs }, message: message
   end
 
   # PATCH/PUT /messages/1 or /messages/1.json

@@ -1,3 +1,5 @@
+<div id="user-id" data-user-id="<%=current_user.id%>">
+</div>
 <div class="container-fluid">
   <div class="row">
     <div class="col-3">
@@ -20,18 +22,11 @@
           <nav class="navbar navbar-light mb-2" style="background-color: #e3f2fd;">
             <span class="navbar-brand" href="#"><%= @room.name %></span>
           </nav>
-          <%@room.messages.each do |message| %>
-            <div class="message mb-2"<%='me' if message.user == current_user%>>
-              <div class="cont-cont">
-                <div class="content">
-                  <%= message.content %>
-                </div>
-                <div class="author">
-                  <%= message.user.username %>
-                </div>
-              </div>
-            </div>
-          <% end %>
+          <div id="messages">
+            <%@room.messages.each do |message| %>
+              <%= render 'messages/messages' , message:message %>
+            <% end %>
+          </div>
           <div class="chat-box">
             <%= render "messages/form" ,message: Message.new,room: @room%>
           </div>

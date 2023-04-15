@@ -1,6 +1,6 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create({ channel: "RoomChannel", room: { id: 1 } }, {
+consumer.subscriptions.create({ channel: "RoomChannel", room_id: 1 }, {
   connected() {
     console.log("Connected..")
   },
@@ -10,6 +10,16 @@ consumer.subscriptions.create({ channel: "RoomChannel", room: { id: 1 } }, {
   },
 
   received(data) {
-    console.log(data)
+    const element = document.getElementById('user-id')
+    const user_id = Number(element.getAttribute('data-user-id'));
+    let html;
+    if (user_id === data.message.user_id) {
+      html = data.mine
+    }
+    else {
+      html = data.theirs
+    }
+    const messageContainer = document.getElementById('messages')
+    messageContainer.innerHTML = messageContainer.innerHTML + html
   }
 });
